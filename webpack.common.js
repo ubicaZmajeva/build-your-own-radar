@@ -18,7 +18,7 @@ if (env) {
 
 const common = ['./src/common.js']
 
-const ASSET_PATH = process.env.ASSET_PATH || '/'
+const ASSET_PATH = 'technology-lighthouse-snapshots' || '/'
 
 const plugins = [
   new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
@@ -32,12 +32,6 @@ const plugins = [
     chunks: ['common'],
     inject: 'body',
     filename: 'error.html',
-  }),
-  new webpack.DefinePlugin({
-    'process.env.CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
-    'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
-    'process.env.ENABLE_GOOGLE_AUTH': JSON.stringify(process.env.ENABLE_GOOGLE_AUTH),
-    'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID),
   }),
 ]
 
@@ -54,7 +48,7 @@ module.exports = {
     assetModuleFilename: 'images/[name][ext]',
   },
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.js', '.ts', '.js'],
     fallback: {
       fs: false,
     },
@@ -104,8 +98,9 @@ module.exports = {
         test: /\.(eot|otf|ttf|woff|woff2)$/,
         type: 'asset/resource',
       },
+
       {
-        test: /\.(png|jpg|jpeg|gif|ico|svg)$/,
+        test: /\.(png|jpg|jpeg|gif|ico|svg|json)$/,
         exclude: /node_modules/,
         type: 'asset/resource',
       },

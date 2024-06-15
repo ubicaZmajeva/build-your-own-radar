@@ -4,9 +4,7 @@ const Chance = require('chance')
 const _ = require('lodash/core')
 
 const RingCalculator = require('../util/ringCalculator')
-const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
-const config = require('../config')
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
@@ -655,16 +653,12 @@ const Radar = function (size, radar) {
   }
 
   self.init = function () {
-    const selector = config.featureToggles.UIRefresh2022 ? 'main' : 'body'
-    radarElement = d3.select(selector).append('div').attr('id', 'radar')
+    radarElement = d3.select('main').append('div').attr('id', 'radar')
     return self
   }
 
   function constructSheetUrl(sheetName) {
-    var noParamUrl = window.location.href.substring(0, window.location.href.indexOf(window.location.search))
-    var queryParams = QueryParams(window.location.search.substring(1))
-    var sheetUrl = noParamUrl + '?sheetId=' + queryParams.sheetId + '&sheetName=' + encodeURIComponent(sheetName)
-    return sheetUrl
+    return window.location.href.substring(0, window.location.href.indexOf(window.location.search))
   }
 
   function plotAlternativeRadars(alternatives, currentSheet) {
@@ -696,16 +690,11 @@ const Radar = function (size, radar) {
     alternatives = radar.getAlternatives()
     currentSheet = radar.getCurrentSheet()
 
-    if (config.featureToggles.UIRefresh2022) {
-      const landingPageElements = document.querySelectorAll('main .home-page')
-      landingPageElements.forEach((elem) => {
-        elem.style.display = 'none'
-      })
-      plotHeader()
-    } else {
-      plotRadarHeader()
-      plotRadarFooter()
-    }
+    const landingPageElements = document.querySelectorAll('main')
+    landingPageElements.forEach((elem) => {
+      elem.style.display = 'none'
+    })
+    plotHeader()
 
     if (alternatives.length) {
       plotAlternativeRadars(alternatives, currentSheet)

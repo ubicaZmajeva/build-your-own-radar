@@ -1,10 +1,5 @@
 @import 'colors';
-@import 'featuretoggles';
 @import 'mediaqueries';
-
-header {
-  text-align: center;
-}
 
 .radar-title,
 .buttons-group,
@@ -201,25 +196,6 @@ header {
 
     .ui-menu-item-wrapper {
       padding: 0 10px;
-    }
-  }
-}
-
-@if $UIRefresh2022 {
-  header {
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    a {
-      display: block;
-      border-bottom: none;
-
-      img {
-        height: 20px;
-        width: auto;
-      }
     }
   }
 }

@@ -1,6 +1,3 @@
-const MalformedDataError = require('../exceptions/malformedDataError')
-const ExceptionMessages = require('../util/exceptionMessages')
-
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
@@ -45,19 +42,12 @@ const Radar = function () {
   }
 
   self.addQuadrant = function (quadrant) {
-    if (addingQuadrant >= 4) {
-      throw new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS)
-    }
     quadrants[addingQuadrant].quadrant = quadrant
     setNumbers(quadrant.blips())
     addingQuadrant++
   }
 
   function allQuadrants() {
-    if (addingQuadrant < 4) {
-      throw new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS)
-    }
-
     return _.map(quadrants, 'quadrant')
   }
 
